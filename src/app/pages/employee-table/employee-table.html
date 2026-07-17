@@ -1,0 +1,48 @@
+<div class="employee-table">
+    <h2>Employee Table</h2>
+    <div class="input-container">
+        <input type="text" 
+           placeholder="Search by name..." 
+           [(ngModel)]="searchTerm"  
+           (input)="applyFilters()"
+        >
+        <select [(ngModel)]="selectedDepartment" (change)="applyFilters()">
+            <option value="">All Departments</option>
+            <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
+        </select>
+
+        <select [(ngModel)]="sortOrder" (change)="applyFilters()">
+            <option value="">Sort by Salary</option>
+            <option value="asc">Lowest to Highest</option>
+            <option value="desc">Highest to Lowest</option>
+        </select>
+
+        <button (click)="resetFilters()">Reset Filters</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Salary</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of filteredEmployees">
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>{{ employee.city }}</td>
+                </tr>
+                <tr class="no-employees" *ngIf="filteredEmployees.length === 0">
+                    <td colspan="5">No employees found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

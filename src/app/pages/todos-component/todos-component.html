@@ -1,0 +1,14 @@
+<div class="container"> 
+      <h2> Load Todos : {{ todos.length }}</h2>
+
+      <ul>
+        <li *ngFor="let todo of todos; trackBy: trackByTodoId">
+            <input type="checkbox" [checked]="todo.completed" disabled/>
+            {{ todo.todo }}
+        </li>
+      </ul>
+
+      <button *ngIf="showLoadMore" (click)="loadTodos()" [disabled]="isLoading">{{isLoading ? 'Loading...': 'Load More'}}</button>
+
+</div>
+
