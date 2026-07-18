@@ -16,7 +16,7 @@ export interface Product {
   selector: 'app-product-catalog',
   imports: [CommonModule, FormsModule],
   templateUrl: './product-catalog.html',
-  styleUrl: './product-catalog.css',
+  styleUrls: ['./product-catalog.css'],
   standalone: true
 })
 export class ProductCatalog implements OnInit {
@@ -32,6 +32,15 @@ export class ProductCatalog implements OnInit {
   selectedPriceRange = '';
 
   sortBy = '';
+
+  // useful price ranges for the UI
+  priceRanges = [
+    '0-50',
+    '50-100',
+    '100-500',
+    '500-1000',
+    '1000-10000'
+  ];
 
   ngOnInit(): void {
     // Initialize the product catalog with some sample data
@@ -57,11 +66,16 @@ export class ProductCatalog implements OnInit {
       { id: 19, name: 'Cookware Set', category: 'Home Appliances', price: 149.99, rating: 4.3, stock: 12 },
       { id: 20, name: 'Bluetooth Speaker', category: 'Electronics', price: 79.99, rating: 4.4, stock: 25 }
     ];
+
+    // initialize filtered view
+    this.filteredProducts = [...this.products];
   }
 
   filterProducts() {
+    const q = this.searchText.trim().toLowerCase();
+
     this.filteredProducts = this.products.filter(product => {
-      const matchesSearchText = product.name.toLowerCase().includes(this.searchText.toLowerCase());
+      const matchesSearchText = !q || product.name.toLowerCase().includes(q);
       const matchesCategory = this.selectedCategory ? product.category === this.selectedCategory : true;
       const matchesPriceRange = this.selectedPriceRange ? this.isWithinPriceRange(product.price, this.selectedPriceRange) : true;
 
@@ -72,6 +86,10 @@ export class ProductCatalog implements OnInit {
   }
 
   sortProducts() {
+    if (!this.sortBy) {
+      return;
+    }
+
     if (this.sortBy === 'priceAsc') {
       this.filteredProducts.sort((a, b) => a.price - b.price);
     } else if (this.sortBy === 'priceDesc') {
@@ -84,13 +102,42 @@ export class ProductCatalog implements OnInit {
   }
 
   isWithinPriceRange(price: number, range: string): boolean {
-    const [min, max] = range.split('-').map(Number);
-    return price >= min && price <= max;
+    const parts = range.split('-').map(Number);
+    if (parts.length === 2 && !Number.isNaN(parts[0]) && !Number.isNaN(parts[1])) {
+      const [min, max] = parts;
+      return price >= min && price <= max;
+    }
+    return true;
   }
 
   getUniqueCategories(): string[] {
     const categories = this.products.map(product => product.category);
     return Array.from(new Set(categories));
+  }
+
+  resetFilters() {
+    this.searchText = '';
+    this.selectedCategory = '';
+    this.selectedPriceRange = '';
+    this.sortBy = '';
+    this.filteredProducts = [...this.products];
+  }
+
+  formatPriceRange(range: string) {
+    const [min, max] = range.split('-');
+    return `$${min} - $${max}`;
+  }
+
+  get totalFiltered(): number {
+    return this.filteredProducts.length;
+  }
+
+  get totalAll(): number {
+    return this.products.length;
+  }
+
+  trackById(_: number, p: Product) {
+    return p.id;
   }
 
 }
