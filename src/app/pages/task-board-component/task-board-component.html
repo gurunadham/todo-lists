@@ -1,0 +1,80 @@
+<div class="board-container">
+    <div class="board-header">
+        <div>
+            <h2>Task Board</h2>
+            <p class="board-description">Add, filter, search, move, and persist tasks with LocalStorage.</p>
+        </div>
+        <div class="board-stats">
+            <span>Total: {{ tasks.length }}</span>
+            <span>Todo: {{ tasks.filter(t => t.status === 'TODO').length }}</span>
+            <span>In Progress: {{ tasks.filter(t => t.status === 'IN_PROGRESS').length }}</span>
+            <span>Done: {{ tasks.filter(t => t.status === 'DONE').length }}</span>
+        </div>
+    </div>
+
+    <div class="add-tasks">
+        <input type="text" placeholder="Enter task title" [(ngModel)]="newTaskTitle">
+        <select [(ngModel)]="newTaskPriority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <button (click)="addTask()">Add Task</button>
+    </div>
+
+    <div class="filter-tasks">
+        <input type="text" placeholder="Search tasks" [(ngModel)]="searchQuery">
+        <select id="filter" [(ngModel)]="filterPriority">
+            <option value="All">All</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+    </div>
+
+    <div class="task-columns" cdkDropListGroup>
+        <div class="task-column" cdkDropList [cdkDropListData]="filteredTasks.filter(t => t.status === 'TODO')" (cdkDropListDropped)="drop($event, 'TODO')">
+            <h3>TODO</h3>
+            <div *ngIf="filteredTasks.filter(t => t.status === 'TODO').length === 0" class="empty-state">
+                No tasks in TODO
+            </div>
+            <div *ngFor="let task of filteredTasks.filter(t => t.status === 'TODO')" cdkDrag [cdkDragData]="task" class="task-card" [ngClass]="task.priority.toLowerCase()">
+                <span class="task-priority">{{ task.priority }}</span>
+                <h4>{{ task.title }}</h4>
+                <div class="task-actions">
+                    <button (click)="moveTask(task, 'IN_PROGRESS')">Start</button>
+                    <button class="delete" (click)="deleteTask(task)">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-column" cdkDropList [cdkDropListData]="filteredTasks.filter(t => t.status === 'IN_PROGRESS')" (cdkDropListDropped)="drop($event, 'IN_PROGRESS')">
+            <h3>In Progress</h3>
+            <div *ngIf="filteredTasks.filter(t => t.status === 'IN_PROGRESS').length === 0" class="empty-state">
+                No tasks in progress
+            </div>
+            <div *ngFor="let task of filteredTasks.filter(t => t.status === 'IN_PROGRESS')" cdkDrag [cdkDragData]="task" class="task-card" [ngClass]="task.priority.toLowerCase()">
+                <span class="task-priority">{{ task.priority }}</span>
+                <h4>{{ task.title }}</h4>
+                <div class="task-actions">
+                    <button (click)="moveTask(task, 'DONE')">Complete</button>
+                    <button class="delete" (click)="deleteTask(task)">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-column" cdkDropList [cdkDropListData]="filteredTasks.filter(t => t.status === 'DONE')" (cdkDropListDropped)="drop($event, 'DONE')">
+            <h3>Done</h3>
+            <div *ngIf="filteredTasks.filter(t => t.status === 'DONE').length === 0" class="empty-state">
+                No completed tasks
+            </div>
+            <div *ngFor="let task of filteredTasks.filter(t => t.status === 'DONE')" cdkDrag [cdkDragData]="task" class="task-card" [ngClass]="task.priority.toLowerCase()">
+                <span class="task-priority">{{ task.priority }}</span>
+                <h4>{{ task.title }}</h4>
+                <div class="task-actions">
+                    <button class="delete" (click)="deleteTask(task)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
