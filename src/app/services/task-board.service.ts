@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-
-export interface Task {
-  id: string;
-  title: string;
-  priority: 'High' | 'Medium' | 'Low';
-  status: 'TODO' | 'IN_PROGRESS' | 'DONE';
-}
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root',

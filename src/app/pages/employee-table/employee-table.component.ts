@@ -1,17 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-export interface Employee {
-  id: number;
-  name: string;
-  email: string;
-  department: string;
-  designation: string;
-  salary: number;
-  experience: number; // years
-  city: string;
-}
+import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-employee-table',

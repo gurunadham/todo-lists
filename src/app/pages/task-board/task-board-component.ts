@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
-import { TaskBoardService, Task } from '../../services/task-board.service';
+import { TaskBoardService } from '../../services/task-board.service';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-board',
