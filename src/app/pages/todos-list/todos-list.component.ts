@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TodosServce } from './todos-servce';
+import { TodosListService } from '../../services/todos-list.servce';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-todos-component',
+  selector: 'app-todos-list',
   imports: [CommonModule],
-  templateUrl: './todos-component.html',
-  styleUrl: './todos-component.css',
+  templateUrl: './todos-list.component.html',
+  styleUrl: './todos-list.component.css',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodosComponent {
+export class TodosListComponent {
     todos : any[] = [];
 
     readonly limit = 20;
@@ -19,7 +19,7 @@ export class TodosComponent {
 
     isLoading = false;
 
-    constructor(private todosService: TodosServce) {}
+    constructor(private todosListService: TodosListService) {}
 
 
     ngOnInit() {
@@ -34,7 +34,7 @@ export class TodosComponent {
         
         this.isLoading = true;
 
-        this.todosService.getTodos(this.limit, this.skip).subscribe({
+        this.todosListService.getTodos(this.limit, this.skip).subscribe({
             next: (response) => {
                 this.todos = [...this.todos, ...(response.todos ?? [])];
                 this.skip += this.limit;

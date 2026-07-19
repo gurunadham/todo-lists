@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class TodosServce {
+export class TodosListService {
   private readonly API_URL = 'https://dummyjson.com/todos';
 
   constructor(private http: HttpClient) {}

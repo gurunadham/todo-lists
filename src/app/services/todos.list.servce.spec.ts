@@ -1,17 +1,17 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { TodosServce } from './todos-servce';
+import { TodosListService } from './todos-list.servce';
 
-describe('TodosServce', () => {
-  let service: TodosServce;
+describe('TodosListService', () => {
+  let service: TodosListService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
-    service = TestBed.inject(TodosServce);
+    service = TestBed.inject(TodosListService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 

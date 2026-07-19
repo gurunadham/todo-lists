@@ -15,11 +15,11 @@ export interface Product {
 @Component({
   selector: 'app-product-catalog',
   imports: [CommonModule, FormsModule],
-  templateUrl: './product-catalog.html',
-  styleUrls: ['./product-catalog.css'],
+  templateUrl: './product-catalog.component.html',
+  styleUrls: ['./product-catalog.component.css'],
   standalone: true
 })
-export class ProductCatalog implements OnInit {
+export class ProductCatalogComponent implements OnInit {
 
   products: Product[] = [];
 

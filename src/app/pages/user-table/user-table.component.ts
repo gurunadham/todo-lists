@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { UserService } from './user-service';
+import { UserTableService } from '../../services/user-table.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-table',
   imports: [CommonModule],
-  templateUrl: './user-table.html',
-  styleUrl: './user-table.css',
+  templateUrl: './user-table.component.html',
+  styleUrl: './user-table.component.css',
   standalone: true,
 })
-export class UserTable {
+export class UserTableComponent {
   users: any[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userTableService: UserTableService) {}
 
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class UserTable {
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe(
+    this.userTableService.getUsers().subscribe(
       (data) => {
         console.log('Fetched users:', data);
         this.users = data;
