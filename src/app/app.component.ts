@@ -5,6 +5,7 @@ import { UserTableComponent } from './pages/user-table/user-table.component';
 import { EmployeeTableComponent } from './pages/employee-table/employee-table.component';
 import { ProductCatalogComponent } from './pages/product-catalog/product-catalog.component';
 import { TaskBoardComponent } from './pages/task-board/task-board-component';
+import { PostListComponent } from './pages/post-list/post-list.component';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,11 @@ import { TaskBoardComponent } from './pages/task-board/task-board-component';
     UserTable, 
     EmployeeTableComponent, 
     ProductCatalogComponent, 
-    TaskBoardComponent
+    TaskBoardComponent,
+    PostListComponent
    ]  */
 
-  imports: [EmployeeTableComponent],
+  imports: [PostListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

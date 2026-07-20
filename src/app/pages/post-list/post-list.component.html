@@ -1,1 +1,58 @@
-<p>post-list.component works!</p>
+<div class="post-list-container" (scroll)="onScroll($event)">
+  <h2 class="title">Post List</h2>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <label for="search">Search</label>
+    <div class="search-input-wrapper">
+      <input
+        type="text"
+        id="search"
+        [(ngModel)]="searchTerm"
+        (input)="searchPosts()"
+        placeholder="Search posts..."
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <!-- Sort Section -->
+  <div class="sort-section">
+    <label for="sort">Sort</label>
+    <div class="sort-select-wrapper">
+      <select
+        id="sort"
+        [(ngModel)]="sortOrder"
+        (change)="sortPosts()"
+        class="sort-select"
+      >
+        <option value="">None</option>
+        <option value="A-Z">A-Z ▼</option>
+        <option value="Z-A">Z-A ▲</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Posts List -->
+  <div class="post-list">
+    <div *ngFor="let post of filteredPosts; trackBy: trackById" class="post-item">
+      <h3 class="post-title">{{post.id}}.{{ post.title }} <span class="post-id" style="color: #666; font-size: 0.9em; text-align: right">UserId: {{ post.userId }}</span></h3>
+      <p class="post-body">{{ post.body }}</p>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-text">Loading...</div>
+  </div>
+
+  <!-- No Results Message -->
+  <div *ngIf="filteredPosts.length === 0 && !isLoading" class="no-results">
+    <p>No posts found</p>
+  </div>
+
+  <!-- Scroll Hint -->
+  <div *ngIf="hasMore && filteredPosts.length > 0" class="scroll-hint">
+    <p>↓ Scroll for more</p>
+  </div>
+</div>
