@@ -1,9 +1,18 @@
 
-<!-- <app-todos-component></app-todos-component> -->
- <!-- <app-user-table></app-user-table> -->
- <!-- <app-employee-table></app-employee-table> -->
-<!-- <app-product-catalog></app-product-catalog> -->
-<!-- <app-task-board-component></app-task-board-component> -->
- <app-post-list></app-post-list>
+<nav>
+	<ul>
+		<li><a routerLink="/todos" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Todos</a></li>
+		<li><a routerLink="/users" routerLinkActive="active-link">Users</a></li>
+		<li><a routerLink="/employees" routerLinkActive="active-link">Employees</a></li>
+		<li><a routerLink="/products" routerLinkActive="active-link">Products</a></li>
+		<li><a routerLink="/tasks" routerLinkActive="active-link">Task Board</a></li>
+		<li><a routerLink="/posts" routerLinkActive="active-link">Posts</a></li>
+		<li><a routerLink="/register" routerLinkActive="active-link">Register Employee</a></li>
+	</ul>
+</nav>
+
+<main>
+	<router-outlet></router-outlet>
+</main>
 
 

@@ -1,0 +1,28 @@
+{
+  "name": "John",
+  "email": "john@gmail.com",
+  "mobile": "9876543210",
+  "department": "IT",
+  "experience": 6,
+  "skills": [
+    "Angular",
+    "TypeScript"
+  ],
+  "address": {
+    "street": "ABC",
+    "city": "Hyderabad",
+    "zipCode": "500001"
+  },
+  "companies": [
+    {
+      "company": "TCS",
+      "designation": "Developer",
+      "years": 2
+    },
+    {
+      "company": "Infosys",
+      "designation": "Senior Developer",
+      "years": 3
+    }
+  ]
+}
